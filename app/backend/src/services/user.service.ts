@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import UserModel from '../database/models/1-User.models';
-import IUser from '../Interfaces/UsersService';
+import IUser from '../Interfaces/IUser';
 
 const { JWT_SECRET } = Object(process.env);
 

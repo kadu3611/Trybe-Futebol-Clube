@@ -1,20 +1,20 @@
 module.exports = {
     up: async  (queryInterface, Sequelize) => {
-      const User = await queryInterface.createTable('users', {
+      const Teams = await queryInterface.createTable('teams', {
         id: { 
           type: Sequelize.INTEGER,
           allowNull: false, 
           primaryKey: true,
           autoIncrement: true,
         },
-        teamName: {
+        team_name: {
           type: Sequelize.STRING,
           allowNull: false, 
         },
       })
-      return User;
+      return Teams;
     },
   
-down: async (queryInterface, Sequelize) => queryInterface.dropTable("users"),
+down: async (queryInterface, Sequelize) => queryInterface.dropTable("teams"),
     
 };
