@@ -7,14 +7,19 @@ export default class MatshesController implements IMatchesC {
   }
 
   async findAll(req: Request, res: Response): Promise<Response> {
-    const allMatches = await this.service.findAll();
+    const { query } = req;
+    const queryKey = String(Object.keys(query));
+    const inprogressQuery = String(Object.values(query));
+    if (queryKey === 'inProgress') {
+      const inprogressNew = await this.service.filterProgressTeam(inprogressQuery);
+      return res.status(200).json(inprogressNew);
+    }
+    const allMatches = await this.service.allMatches();
     return res.status(200).json(allMatches);
   }
 
-//   async findByPk(req: Request, res: Response): Promise<Response> {
-//     const { id } = req.params;
-//     const idMatches = await this.service.findByPk(Number(id));
-//     return res.status(200).json(idMatches);
-//     // return
-//   }
+  async createMatches(req: Request, res: Response): Promise<Response> {
+    const saveMatches = await this.service.createMatches(req.body);
+    return res.status(200).json(saveMatches);
+  }
 }

@@ -23,5 +23,6 @@ userRouter.get('/login/validate', (req, res) => userController.validatToken(req,
 userRouter.get('/teams', (req, res) => teamController.findAll(req, res));
 userRouter.get('/teams/:id', (req, res) => teamController.findByPk(req, res));
 userRouter.get('/matches', (req, res) => MatchesController.findAll(req, res));
+userRouter.post('/matches', (req, res) => MatchesController.createMatches(req, res));
 
 export default userRouter;
