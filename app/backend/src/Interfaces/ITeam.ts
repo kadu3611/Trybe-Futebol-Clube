@@ -1,7 +1,8 @@
 import { Response, Request } from 'express';
+import TeamsModel from '../database/models/3-Teams.models';
 
 interface ITeamS {
-  findAll(): Promise<object>,
+  findAll(): Promise<TeamsModel[]>,
   //   findByPk(id: number): Promise<object | null>,
 
 }

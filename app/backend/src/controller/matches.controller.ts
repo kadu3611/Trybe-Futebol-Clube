@@ -6,7 +6,7 @@ export default class MatshesController implements IMatchesC {
   constructor(private service: MatchesService) {
   }
 
-  async findAll(req: Request, res: Response): Promise<Response> {
+  async allMatches(req: Request, res: Response): Promise<Response> {
     const { query } = req;
     const queryKey = String(Object.keys(query));
     const inprogressQuery = String(Object.values(query));
@@ -19,7 +19,24 @@ export default class MatshesController implements IMatchesC {
   }
 
   async createMatches(req: Request, res: Response): Promise<Response> {
-    const saveMatches = await this.service.createMatches(req.body);
-    return res.status(200).json(saveMatches);
+    const matchesSave = req.body;
+    const saveMatches = await this.service.createMatches(matchesSave);
+    return res.status(201).json(saveMatches);
+  }
+
+  async updateMatches(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const numberId = parseInt(id, 10);
+    await this.service.updateMatches(numberId);
+    console.log(numberId);
+    return res.status(200).json({ message: 'Finished' });
+  }
+
+  async updateTeams(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const numberId = parseInt(id, 10);
+    const allTeams = req.body;
+    await this.service.updateTeams(numberId, allTeams);
+    return res.status(200).json({ message: 'Bora Bill!' });
   }
 }

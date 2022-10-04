@@ -15,10 +15,9 @@ export default class UserController implements IUserController {
     return res.status(200).json({ token });
   }
 
-  async validatToken(req: Request, res: Response): Promise<Response> {
+  validatToken = async (req: Request, res: Response): Promise<Response> => {
     const { authorization } = Object(req.headers);
     const verify = await this.service.validatToken(authorization);
-    console.log(verify);
     return res.status(200).json({ role: verify });
-  }
+  };
 }

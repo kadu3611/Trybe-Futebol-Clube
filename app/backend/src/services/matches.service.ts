@@ -31,15 +31,40 @@ export default class Matcheservice implements IMatches {
     return filterProgressTeam;
   }
 
-  async createMatches(object: object): Promise<object> {
-    const saveMatches = await this.db.create(object);
-    if (!saveMatches) {
-      return { false: 'false' };
-    }
-    const { homeTeam, awayTeam, awayTeamGoals, homeTeamGoals, inProgress } = saveMatches;
-    const filteMatches = await this.db.findAll({
-      where: { homeTeam, awayTeam, awayTeamGoals, homeTeamGoals, inProgress },
+  async createMatches(object:object): Promise<object> {
+    const saveTeam = await this.db.create(object);
+    const { homeTeam, awayTeam, awayTeamGoals, homeTeamGoals, inProgress } = saveTeam;
+    const [filteMatches] = await this.db.findAll({
+      where: { homeTeam,
+        awayTeam,
+        awayTeamGoals,
+        homeTeamGoals,
+        inProgress,
+      },
     });
     return filteMatches;
+  }
+
+  async updateMatches(number: number): Promise<void> {
+    await this.db.update(
+      { inProgress: false },
+      {
+        where: {
+          id: number,
+        },
+      },
+    );
+  }
+
+  async updateTeams(number: number, object: object): Promise<object> {
+    const updateFinish = await this.db.update(
+      { object },
+      {
+        where: {
+          id: number,
+        },
+      },
+    );
+    return updateFinish;
   }
 }

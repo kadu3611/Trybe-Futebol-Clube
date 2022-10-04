@@ -4,7 +4,7 @@ import ITeam from '../Interfaces/ITeam';
 export default class TeamService implements ITeam {
   db = TeamsModel;
 
-  async findAll(): Promise<object> {
+  async findAll(): Promise<TeamsModel[]> {
     const objectTeam = await this.db.findAll();
     return objectTeam;
   }
