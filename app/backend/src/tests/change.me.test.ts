@@ -40,7 +40,26 @@ describe('/login', () => {
         expect(objectResponse).to.deep.equal('token');
       })
   });
-
+  describe('/teams', () => {
+    describe('All routes', () => {
+      it('Status 200', async () => {
+        const response = await chai.request(app).get('/teams').send();
+        expect(response.status).to.equal(200);
+      })
+      // describe('POST', () => {
+  
+      //   beforeEach(() => {
+      //     Sinon.stub(User, 'afterValidate').resolves({...mock})
+      //   })
+  
+      //   })
+      //   it('Retorna um token', async () => {
+      //     const response = await chai.request(app).post('/login').send(mock);
+      //     const [objectResponse] = Object.keys(response.body);
+      //     expect(objectResponse).to.deep.equal('token');
+      //   })
+    });
+  
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -72,3 +91,4 @@ describe('/login', () => {
   // });
 });
 
+});
