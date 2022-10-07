@@ -1,10 +1,13 @@
 import { STRING, INTEGER, Model } from 'sequelize';
+import IMatchesTeam from '../../Interfaces/IMatchesTeams';
 import db from '.';
+// import Matches from './2-Matches.model';
 // import Matches from './2-Matches.model';
 
 class Teams extends Model {
   id!: number;
   teamName!: string;
+  homeMatches!: IMatchesTeam[];
 }
 
 Teams.init({
