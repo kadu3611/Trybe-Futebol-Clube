@@ -1,5 +1,6 @@
 // import UserModel from '../database/models/1-User-models';
 // import Teams from '../database/models/3-Teams.models';
+import { Request, Response } from 'express';
 
 interface IAllPoints{
   name: string;
@@ -83,5 +84,9 @@ interface IGoals {
   goalsB: number;
 }
 
+interface ILeaderboardC{
+  allPointsHome(req: Request, res: Response): Promise<Response>,
+}
+
 export { IGoals, IAllPoints, IPointsTeams, IMatchesPointsHome,
-  IMatchesDb, IArrayMatch, IPoints, ITotal };
+  IMatchesDb, IArrayMatch, IPoints, ITotal, ILeaderboardC };

@@ -2,16 +2,13 @@ import Matches from '../database/models/2-Matches.model';
 import Matcheservice from './matches.service';
 import Teams from '../database/models/3-Teams.models';
 import { allGoals, allTotal, efficiencyFunction, allTotalPoints,
-  totalGams, allpointsSort } from './utils.service';
+  totalGams, allpointsSort } from './utilsHome.service';
 import { IArrayMatch } from '../Interfaces/ILeaderboard';
+import { allTotalA, allGoalsA, efficiencyFunctionA, allTotalPointsA,
+  totalGamsA, allpointsSortA } from './utilsAways.service';
 
 export default class LeaderboardService {
   db = Teams;
-
-  async allTeams(): Promise<Teams[]> {
-    const allTeams = await this.db.findAll();
-    return allTeams;
-  }
 
   static allMatches = new Matcheservice().allMatches();
 
@@ -30,8 +27,7 @@ export default class LeaderboardService {
     return db;
   }
 
-  // Array<{homeTeam:number, homeTeamGoals:number, awayTeamGoals:number}>
-  async allPoints():Promise<IArrayMatch[]> {
+  async allPointsHome():Promise<IArrayMatch[]> {
     const dbTeamsAll = await this.dbTeamsAll();
     const points:IArrayMatch[] = dbTeamsAll.map((elemento) => ({
       name: elemento.teamName,
@@ -49,9 +45,21 @@ export default class LeaderboardService {
     return pointsSort;
   }
 
-  static async returnFunction() {
-    // await this();
-    // return new LeaderboardService().dbTeamsAll();
-    return new LeaderboardService().allPoints();
+  async allPointsAway():Promise<IArrayMatch[]> {
+    const dbTeamsAll = await this.dbTeamsAll();
+    const points:IArrayMatch[] = dbTeamsAll.map((elemento) => ({
+      name: elemento.teamName,
+      totalPoints: allTotalPointsA(elemento.awayMatches).totalP,
+      totalGames: totalGamsA(elemento.awayMatches),
+      totalVictories: allTotalA(elemento.awayMatches).totalV,
+      totalDraws: allTotalA(elemento.awayMatches).totalD,
+      totalLosses: allTotalA(elemento.awayMatches).totalL,
+      goalsFavor: allGoalsA(elemento.awayMatches).goalsFavor,
+      goalsOwn: allGoalsA(elemento.awayMatches).goalsOwn,
+      goalsBalance: allGoalsA(elemento.awayMatches).goalsB,
+      efficiency: efficiencyFunctionA(elemento.awayMatches),
+    }));
+    const pointsSort = allpointsSortA(points);
+    return pointsSort;
   }
 }

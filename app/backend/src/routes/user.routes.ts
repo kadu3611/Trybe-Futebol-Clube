@@ -22,10 +22,10 @@ const MatchesService = new Matcheservice();
 const MatchesController = new MatshesController(MatchesService);
 
 // const LeaderboardS = LeaderboardService;
-const LeaderboardC = LeaderboardController;
+// const LeaderboardC = LeaderboardController;
 
-// const LeaderboardS = new LeaderboardService();
-// const LeaderboardC = new LeaderboardController(LeaderboardS);
+const LeaderboardS = new LeaderboardService();
+const LeaderboardC = new LeaderboardController(LeaderboardS);
 
 userRouter.post('/login', validComponents, (req, res) => userController.generationToken(req, res));
 userRouter.get('/login/validate', (req, res) => userController.validatToken(req, res));
@@ -47,14 +47,15 @@ userRouter.patch(
 userRouter.patch(
   '/matches/:id',
   validationToken,
-  // validationTeams,
   (req, res) => MatchesController.updateTeams(req, res),
 );
 userRouter.get(
   '/leaderboard/home',
-  // validationToken,
-  // validationTeams,
-  (req, res) => LeaderboardC.allPoints(req, res),
+  (req, res) => LeaderboardC.allPointsHome(req, res),
 );
 
+userRouter.get(
+  '/leaderboard/away',
+  (req, res) => LeaderboardC.allPointsAway(req, res),
+);
 export default userRouter;
