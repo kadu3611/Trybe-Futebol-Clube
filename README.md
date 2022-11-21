@@ -154,12 +154,10 @@ Na sua máquina você deve ter:
 
 Entre na pasta do backend ```cd app/backend```
 
-```
 npm run test
-```
 
 npm run test:coverage
-```
+
 ## 🛠️ Ferramentas & Metodologias Utilizadas
 
 - [Node.js](https://nodejs.org/en/);
